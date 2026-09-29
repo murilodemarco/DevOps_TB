@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Fazer o gitclone
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Visualizar os arquivos
         run: ls -l
