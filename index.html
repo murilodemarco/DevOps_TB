@@ -1,13 +1,487 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tartarugas Ninja</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07110a;
+      color: white;
+    }
+
+    /* HEADER */
+    header {
+      height: 80px;
+      padding: 0 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: #0b160d;
+      border-bottom: 2px solid #39ff14;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #39ff14;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #39ff14;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 650px;
+      padding: 80px 8%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      background:
+        radial-gradient(circle at center, #1b5e20 0%, #07110a 55%);
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 9vw, 110px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      font-weight: 900;
+
+      text-shadow:
+        0 0 10px #39ff14,
+        0 0 30px rgba(57, 255, 20, 0.5);
+
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #39ff14;
+    }
+
+    .hero p {
+      color: #c9c9c9;
+      font-size: 19px;
+      line-height: 1.6;
+      margin-bottom: 35px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 16px 35px;
+
+      background: #39ff14;
+      color: #07110a;
+
+      text-decoration: none;
+      font-weight: 900;
+      border-radius: 8px;
+
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      background: white;
+      box-shadow: 0 0 25px #39ff14;
+    }
+
+    /* PERSONAGENS */
+    .characters {
+      padding: 90px 8%;
+      background: #0a130b;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+
+    .section-title span {
+      color: #39ff14;
+    }
+
+    .cards {
+      max-width: 1100px;
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      overflow: hidden;
+      background: #111c13;
+
+      border: 1px solid #243b27;
+      border-radius: 15px;
+
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: #39ff14;
+      box-shadow: 0 10px 30px rgba(57, 255, 20, 0.15);
+    }
+
+    .character-image {
+      height: 190px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 80px;
+      background: #162619;
+    }
+
+    .leo {
+      border-bottom: 5px solid #2196f3;
+    }
+
+    .raph {
+      border-bottom: 5px solid #e91e63;
+    }
+
+    .donnie {
+      border-bottom: 5px solid #9c27b0;
+    }
+
+    .mikey {
+      border-bottom: 5px solid #ff9800;
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card h3 {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .weapon {
+      margin-top: 15px;
+      color: #39ff14;
+      font-weight: bold;
+    }
+
+    /* SOBRE */
+    .about {
+      padding: 90px 8%;
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b170d,
+          #132719
+        );
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .about h2 {
+      font-size: 42px;
+      margin-bottom: 25px;
+    }
+
+    .about h2 span {
+      color: #39ff14;
+    }
+
+    .about p {
+      color: #bbb;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 30px;
+      text-align: center;
+
+      background: #050905;
+      color: #777;
+
+      border-top: 1px solid #1b351e;
+    }
+
+    footer strong {
+      color: #39ff14;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 900px) {
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header {
+        padding: 0 5%;
+      }
+
+      nav a {
+        margin-left: 10px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        height: auto;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        font-size: 13px;
+      }
+
+      .hero {
+        min-height: 550px;
+        padding: 60px 20px;
+      }
+
+      .hero h1 {
+        font-size: 55px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title,
+      .about h2 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Comandos GitHub - Atualização</h1>
-    <h2>Atualização</h2>
+
+  <!-- HEADER -->
+  <header>
+
+    <div class="logo">
+      🐢 TMNT
+    </div>
+
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#personagens">Personagens</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+      <h1>
+        Tartarugas<br>
+        <span>Ninja</span>
+      </h1>
+
+      <p>
+        Quatro irmãos, uma equipe e muita atitude.
+        Conheça Leonardo, Raphael, Donatello e Michelangelo.
+      </p>
+
+      <a href="#personagens" class="button">
+        CONHECER A EQUIPE
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- PERSONAGENS -->
+  <section class="characters" id="personagens">
+
+    <h2 class="section-title">
+      A <span>Equipe</span>
+    </h2>
+
+    <div class="cards">
+
+      <!-- LEONARDO -->
+      <div class="card">
+
+        <div class="character-image leo">
+          🐢
+        </div>
+
+        <div class="card-content">
+
+          <h3>Leonardo</h3>
+
+          <p>
+            O líder da equipe. Disciplinado, focado
+            e sempre disposto a proteger seus irmãos.
+          </p>
+
+          <div class="weapon">
+            ⚔️ Katanas
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RAPHAEL -->
+      <div class="card">
+
+        <div class="character-image raph">
+          🐢
+        </div>
+
+        <div class="card-content">
+
+          <h3>Raphael</h3>
+
+          <p>
+            Forte e determinado, Raphael possui uma
+            personalidade intensa e não foge de desafios.
+          </p>
+
+          <div class="weapon">
+            🔱 Sai
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DONATELLO -->
+      <div class="card">
+
+        <div class="character-image donnie">
+          🐢
+        </div>
+
+        <div class="card-content">
+
+          <h3>Donatello</h3>
+
+          <p>
+            O cérebro da equipe. Inteligente e criativo,
+            usa a tecnologia para ajudar seus irmãos.
+          </p>
+
+          <div class="weapon">
+            🪄 Bō
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MICHELANGELO -->
+      <div class="card">
+
+        <div class="character-image mikey">
+          🐢
+        </div>
+
+        <div class="card-content">
+
+          <h3>Michelangelo</h3>
+
+          <p>
+            Divertido e descontraído, Michelangelo
+            mantém o bom humor mesmo nos momentos difíceis.
+          </p>
+
+          <div class="weapon">
+            🔗 Nunchakus
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SOBRE -->
+  <section class="about" id="sobre">
+
+    <div class="about-content">
+
+      <h2>
+        Heróis das <span>Sombras</span>
+      </h2>
+
+      <p>
+        Treinados pelo Mestre Splinter, os quatro irmãos
+        vivem nos esgotos de Nova York enquanto treinam
+        suas habilidades e enfrentam ameaças para proteger
+        a cidade.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    Página temática inspirada em
+    <strong>Tartarugas Ninja</strong>.
+
+  </footer>
+
 </body>
 </html>
