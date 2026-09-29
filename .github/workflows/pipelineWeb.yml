@@ -1,0 +1,51 @@
+
+name: Publicando o main
+
+on:
+  # Quando vai execucar
+  push:
+    branches: ["main"]
+
+# Permissoes para executar no pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+# Parametros que precisa 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  Validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer o gitclone
+        uses: action/checkout@v4
+
+      - name: Visualizar os arquivos
+        run: ls -l
+      
+  
+  
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
